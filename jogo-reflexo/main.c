@@ -10,6 +10,8 @@ const int PIN_BUTTON_R = 20;
 const int PIN_LED_G = 5;
 const int PIN_LED_Y = 9;
 const int PIN_LED_R = 13;
+const int lista[] = {1, 0, 2, 1, 0, 1, 2, 1, 0, 1};
+
 
 volatile int flag_g = 0;
 volatile int flag_y = 0;
@@ -72,7 +74,6 @@ int main() {
     gpio_set_irq_enabled_with_callback(PIN_BUTTON_G, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL , true, &btn_callback);
     gpio_set_irq_enabled(PIN_BUTTON_Y, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL, true);
     gpio_set_irq_enabled(PIN_BUTTON_R, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL , true);
-    int lista[] = {1, 0, 2, 1, 0, 1, 2, 1, 0, 1};
     int flag_start = 0;
     int flag_nivel = 0;
     int nivel = 0;
