@@ -29,7 +29,9 @@ int main() {
 
     adc_init();
     adc_gpio_init(28);
-    adc_select_input(2);
+    adc_selec
+    
+    t_input(2);
     int freq_0 = 0;
     int freq_0_old = 0;
 

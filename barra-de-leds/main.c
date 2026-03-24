@@ -9,14 +9,14 @@ volatile int flag_dir = 0;
 void btn_callback(uint gpio, uint32_t events){
     if(events == 0x4){
         if(gpio == PIN_BUTTON_G){
-            flag_cont = 0;
+            flag_cont = 1;
         }
         if(gpio == PIN_BUTTON_B){
             flag_dir = 0;
         }
 
     }
-    if(events == 0x8){
+    if(events == GPIO_IRQ_EDGE_RISE){
         if(gpio == PIN_BUTTON_B){
             flag_dir = 1;
         }
@@ -34,19 +34,26 @@ int main() {
     gpio_set_dir(PIN_BUTTON_B,GPIO_IN);
 
     gpio_set_irq_enabled_with_callback(PIN_BUTTON_G, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL , true, &btn_callback);
-    gpio_set_irq_enabled(PIN_BUTTON_B, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL , true);
+    gpio_set_irq_enabled_with_callback(PIN_BUTTON_B, GPIO_IRQ_EDGE_RISE|GPIO_IRQ_EDGE_FALL , true, &btn_callback);
 
     gpio_pull_up(PIN_BUTTON_G);
+    gpio_pull_up(PIN_BUTTON_B);
     int cont = 0;
     while (true) {
         if(flag_cont){
-            if(!flag_dir && cont<4){
+            if(!flag_dir && cont<5){
+                printf("%d \n", cont);
+                if(cont<0){
+                    cont = 0;
+                }
                 bar_display(cont);
                 cont++;
             }
-            if(flag_dir){
+            if(flag_dir && cont>=0){
                 bar_display(5);
-                for(int i = (cont-1); i>0; i--){
+                printf("%d \n", cont);
+                for(int i = (cont-2); i>=0; i--){
+                    printf("   %d \n", i);
                     bar_display(i);
                 }
                 cont--;

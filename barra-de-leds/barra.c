@@ -24,10 +24,10 @@ void bar_display(int val){
         gpio_put(PIN_BARRA_3,1);
     }
     if(val==3){
-        gpio_put(PIN_BARRA_3,1);
+        gpio_put(PIN_BARRA_4,1);
     }
     if(val==4){
-        gpio_put(PIN_BARRA_4,1);
+        gpio_put(PIN_BARRA_5,1);
     }
     if(val == 5){
         gpio_put(PIN_BARRA_1,0);
