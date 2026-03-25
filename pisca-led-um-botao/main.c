@@ -113,4 +113,5 @@ int main()
         flag_timer = 0;
     }
     }
+    return 1;
 }
