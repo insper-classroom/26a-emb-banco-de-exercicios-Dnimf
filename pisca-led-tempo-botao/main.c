@@ -16,6 +16,7 @@ const int PIN_BUTTON = 28;
 
 volatile int flag_fall;
 volatile int flag_rise;
+volatile int flag_timer;
 void btn_callback(uint gpio, uint32_t events)
 {
     if(events == 0x04){
@@ -24,6 +25,12 @@ void btn_callback(uint gpio, uint32_t events)
     else if( events == 0x08){
         flag_rise = 1;
     }
+}
+
+bool timer_callback(repeating_timer_t *rt)
+{
+    flag_timer = 1;
+    return true;
 }
 
 int main() {
@@ -43,15 +50,21 @@ int main() {
     int prepara;
     int delta;
     int rodando;
+    int led_status = 0;
     while (true) {
         if(flag_fall){
+            if(rodando){
+                gpio_put(PIN_LED, 0);
+                cancel_repeating_timer(&timer);
+                rodando = 0;
+            }
             inicio = to_ms_since_boot(get_absolute_time());
             flag_fall = 0;
         }
 
         if(flag_rise){
             fim = to_ms_since_boot(get_absolute_time());
-            printf("fim %d", fim);
+            // printf("fim %d", fim);
             prepara = 1;
             flag_rise = 0;
         }
@@ -60,13 +73,21 @@ int main() {
             if (!add_repeating_timer_ms(delta,
                                         timer_callback,
                                         NULL,
-                                        &timer_g))
+                                        &timer))
             {
                 printf("Failed to add timer\n");
             }
-
+            led_status = 1;
+            gpio_put(PIN_LED, led_status);
             prepara = 0;
+            rodando = 1;
         }
+        if(flag_timer){
+            led_status = !led_status;
+            gpio_put(PIN_LED, led_status);
+            flag_timer = 0;
+        }
+
     }
 
     return 0;
