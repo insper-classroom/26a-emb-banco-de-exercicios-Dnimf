@@ -170,6 +170,7 @@ int main()
             flag_alarm_y = 0;
         }
     }
+    return 0;
 }
 
 // #include <stdio.h>
