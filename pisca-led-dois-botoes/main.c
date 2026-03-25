@@ -147,6 +147,7 @@ int main()
                 cancel_alarm(alarm_y);
                 led_y_status = 0;
                 gpio_put(PIN_LED_Y, led_y_status);
+                alarm_y_up =0;
             }
             alarm_g_up = 0;
             flag_alarm_g = 0;
@@ -163,6 +164,7 @@ int main()
                 cancel_alarm(alarm_g);
                 led_g_status = 0;
                 gpio_put(PIN_LED_G, led_g_status);
+                alarm_g_up =0;
             }
             alarm_y_up = 0;
             flag_alarm_y = 0;
