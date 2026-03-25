@@ -47,7 +47,7 @@ int main() {
     repeating_timer_t timer;
     int inicio;
     int fim;
-    int prepara;
+    int prepara = 0;
     int delta;
     int rodando;
     int led_status = 0;
