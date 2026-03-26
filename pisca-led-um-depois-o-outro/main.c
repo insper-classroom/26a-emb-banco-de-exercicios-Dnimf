@@ -91,8 +91,8 @@ int main()
     {
         printf("Failed to add timer\n");
     }
-    alarm_id_t alarm_1;
-    alarm_id_t alarm_2;
+    // alarm_id_t alarm_1 = NULL;
+    // alarm_id_t alarm_2 = NULL;
     // alarm_id_t alarm_3;
     // alarm_id_t alarm_2;
     int led_state_y = 0;
@@ -107,7 +107,7 @@ int main()
         if (flag_btn_y)
         {
             pode_y = 1;
-            alarm_1 = add_alarm_in_ms(1000, alarm_callback_y, NULL, false);
+            add_alarm_in_ms(1000, alarm_callback_y, NULL, false);
             flag_btn_y = 0;
             tem_b_dps = 1;
         }
@@ -115,7 +115,7 @@ int main()
         if (flag_btn_b)
         {
             pode_b = 1;
-            alarm_1 = add_alarm_in_ms(2000, alarm_callback_b, NULL, false);
+            add_alarm_in_ms(2000, alarm_callback_b, NULL, false);
             flag_btn_b = 0;
             tem_y_dps = 1;
         }
@@ -127,7 +127,7 @@ int main()
             gpio_put(LED_PIN_Y, led_state_y);
             if (tem_b_dps)
             {
-                alarm_2 = add_alarm_in_ms(2000, alarm_callback_b, NULL, false);
+                add_alarm_in_ms(2000, alarm_callback_b, NULL, false);
                 pode_b = 1;
                 tem_b_dps = 0;
             }
@@ -141,7 +141,7 @@ int main()
             gpio_put(LED_PIN_B, led_state_b);
             if (tem_y_dps)
             {
-                alarm_2 = add_alarm_in_ms(1000, alarm_callback_y, NULL, false);
+                add_alarm_in_ms(1000, alarm_callback_y, NULL, false);
                 pode_y = 1;
                 tem_y_dps = 0;
             }
